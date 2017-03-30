@@ -63,7 +63,7 @@ export default class Gauge extends React.Component {
     value = Math.min(value, this.props.max);
     value = Math.max(value, this.props.min);
 
-		const a = (1 - (value - this.props.min) / (this.props.max - this.props.min)) * Math.PI;
+    const a = (1 - (value - this.props.min) / (this.props.max - this.props.min)) * Math.PI;
     const SinA = Math.sin(a);
     const CosA = Math.cos(a);
 
