@@ -79,7 +79,7 @@ export default class Gauge extends React.Component {
     const Yi = Cy - Ri * SinA;
 
     return { Ro, Ri, Cx, Cy, Xo, Yo, Xi, Yi };
-	};
+  };
 
   _getPath = (value) => {
     const { Ro, Ri, Cx, Cy, Xo, Yo, Xi, Yi } = this._getPathValues(value);
@@ -96,7 +96,7 @@ export default class Gauge extends React.Component {
     path += 'Z ';
 
     return path;
-	};
+  };
 
 }  // End Gauge
 
