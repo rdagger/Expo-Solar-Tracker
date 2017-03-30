@@ -67,35 +67,35 @@ export default class Gauge extends React.Component {
     const SinA = Math.sin(a);
     const CosA = Math.cos(a);
 
-		const Cx = this.props.width * 0.5;
-		const Cy = this.props.height * 0.8;
+    const Cx = this.props.width * 0.5;
+    const Cy = this.props.height * 0.8;
 
     const Ro = Cx - this.props.width * 0.1;
     const Ri = Ro - this.props.width * 0.15;
 
-		const Xo = Cx + Ro * CosA;
-		const Yo = Cy - Ro * SinA;
-		const Xi = Cx + Ri * CosA;
-		const Yi = Cy - Ri * SinA;
+    const Xo = Cx + Ro * CosA;
+    const Yo = Cy - Ro * SinA;
+    const Xi = Cx + Ri * CosA;
+    const Yi = Cy - Ri * SinA;
 
-		return { Ro, Ri, Cx, Cy, Xo, Yo, Xi, Yi };
+    return { Ro, Ri, Cx, Cy, Xo, Yo, Xi, Yi };
 	};
 
   _getPath = (value) => {
-		const { Ro, Ri, Cx, Cy, Xo, Yo, Xi, Yi } = this._getPathValues(value);
+    const { Ro, Ri, Cx, Cy, Xo, Yo, Xi, Yi } = this._getPathValues(value);
 
     let path = 'M' + (Cx - Ri) + ',' + Cy + ' ';
-		path += 'L' + (Cx - Ro) + ',' + Cy + ' ';
-		path += 'A' + Ro + ',' + Ro + ' 0 0 1 ' + Xo + ',' + Yo + ' ';
-		path += 'L' + Xi + ',' + Yi + ' ';
-		path += 'A' + Ri + ',' + Ri + ' 0 0 0 ' + (Cx - Ri) + ',' + Cy + ' ';
+    path += 'L' + (Cx - Ro) + ',' + Cy + ' ';
+    path += 'A' + Ro + ',' + Ro + ' 0 0 1 ' + Xo + ',' + Yo + ' ';
+    path += 'L' + Xi + ',' + Yi + ' ';
+    path += 'A' + Ri + ',' + Ri + ' 0 0 0 ' + (Cx - Ri) + ',' + Cy + ' ';
 
     path += 'M' + (Cx - Ri * 0.9) + ',' + Cy + ' ';
     path += 'A' + Ri * 0.9 + ',' + Ri * 0.9 + ' 0 0 0 ' + (Cx - Ri * 0.9) + ',' + Cy + ' ';
 
-		path += 'Z ';
+    path += 'Z ';
 
-		return path;
+    return path;
 	};
 
 }  // End Gauge
