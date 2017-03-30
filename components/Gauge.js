@@ -1,3 +1,5 @@
+//  Code based on https://github.com/Reggino/react-svg-gauge
+
 import React from 'react';
 
 import { Svg,
