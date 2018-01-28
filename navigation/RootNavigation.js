@@ -1,48 +1,54 @@
+import { Notifications } from 'expo';
 import React from 'react';
-import {
-  StackNavigation,
-  TabNavigation,
-  TabNavigationItem,
-} from '@expo/ex-navigation';
+import { StackNavigator } from 'react-navigation';
 
-import { NavIcon } from './NavIcon';
+import MainTabNavigator from './MainTabNavigator';
+import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
-export default class RootNavigation extends React.Component {
+const RootStackNavigator = StackNavigator(
+  {
+    Main: {
+      screen: MainTabNavigator,
+    },
+  },
+  {
+    navigationOptions: () => ({
+      headerTitleStyle: {
+        fontWeight: 'normal',
+      },
+    }),
+  }
+);
+
+export default class RootNavigator extends React.Component {
+  componentDidMount() {
+    this._notificationSubscription = this._registerForPushNotifications();
+  }
+
+  componentWillUnmount() {
+    this._notificationSubscription && this._notificationSubscription.remove();
+  }
+
   render() {
-    return (
-      <TabNavigation
-        navigatorUID="main"
-        tabBarHeight={56}
-        initialTab="panel" >
-        <TabNavigationItem
-          id="panel"
-          renderIcon={this._onRenderIcon('sun-o')}>
-          <StackNavigation initialRoute="panel" />
-        </TabNavigationItem>
+    return <RootStackNavigator />;
+  }
 
-        <TabNavigationItem
-          id="battery"
-          renderIcon={this._onRenderIcon('battery-full')}>
-          <StackNavigation initialRoute="battery" />
-        </TabNavigationItem>
+  _registerForPushNotifications() {
+    // Send our push token over to our backend so we can receive notifications
+    // You can comment the following line out if you want to stop receiving
+    // a notification every time you open the app. Check out the source
+    // for this function in api/registerForPushNotificationsAsync.js
+    registerForPushNotificationsAsync();
 
-        <TabNavigationItem
-          id="load"
-          renderIcon={this._onRenderIcon('lightbulb-o')}>
-          <StackNavigation initialRoute="load" />
-        </TabNavigationItem>
-
-        <TabNavigationItem
-          id="charge"
-          renderIcon={this._onRenderIcon('bolt')}>
-          <StackNavigation initialRoute="charge" />
-        </TabNavigationItem>
-      </TabNavigation>
+    // Watch for incoming notifications
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification
     );
   }
 
-  _onRenderIcon = (icon) => (isSelected) => {
-    return <NavIcon icon={icon} isSelected={isSelected} />;
-  }
-
+  _handleNotification = ({ origin, data }) => {
+    console.log(
+      `Push notification ${origin} with data: ${JSON.stringify(data)}`
+    );
+  };
 }

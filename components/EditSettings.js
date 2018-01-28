@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {
   Alert,
   Modal,
@@ -13,7 +13,8 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 import { observer, inject } from 'mobx-react/native';
 
-@inject("appState") @observer
+@inject('appState')
+@observer
 export default class EditSettings extends React.Component {
   constructor(props) {
     super(props);
@@ -34,13 +35,13 @@ export default class EditSettings extends React.Component {
   }
 
   render() {
-    const errorStyle = {borderColor: 'red', backgroundColor: 'mistyrose'};
+    const errorStyle = {
+      borderColor: 'red',
+      backgroundColor: 'mistyrose',
+    };
     const errorIcon = (
-      <FontAwesome
-        color="red"
-        name="exclamation-circle"
-        size={20}
-      />);
+      <FontAwesome color="red" name="exclamation-circle" size={20} />
+    );
 
     const addressErrorStyle = this.state.addressError ? errorStyle : null;
     const addressErrorIcon = this.state.addressError ? errorIcon : null;
@@ -53,11 +54,9 @@ export default class EditSettings extends React.Component {
           transparent
           visible={this.props.visible}
           onRequestClose={this._closeModal}>
-          <View style={styles.innerContainer} >
+          <View style={styles.innerContainer}>
             <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>
-                Address {addressErrorIcon}
-              </Text>
+              <Text style={styles.inputLabel}>Address {addressErrorIcon}</Text>
               <TextInput
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -90,7 +89,6 @@ export default class EditSettings extends React.Component {
               />
             </View>
 
-
             <View style={styles.buttonsContainer}>
               <TouchableOpacity
                 activeOpacity={0.7}
@@ -98,7 +96,7 @@ export default class EditSettings extends React.Component {
                 onPress={this._onCancel}
                 style={[styles.button, styles.buttonCancel]}>
                 <Text style={styles.buttonLabel}>
-                  <FontAwesome name="ban" size={30} />  Cancel
+                  <FontAwesome name="ban" size={30} /> Cancel
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -107,11 +105,10 @@ export default class EditSettings extends React.Component {
                 onPress={this._onSave}
                 style={[styles.button, styles.buttonSave]}>
                 <Text style={styles.buttonLabel}>
-                  <FontAwesome name="floppy-o" size={30} />  Save
+                  <FontAwesome name="floppy-o" size={30} /> Save
                 </Text>
               </TouchableOpacity>
             </View>
-
           </View>
         </Modal>
       </View>
@@ -158,10 +155,13 @@ export default class EditSettings extends React.Component {
 
   _onEndAddress() {
     const address = this.state.address;
-    if (address && address.length > 4 && address.toUpperCase().startsWith("HTTP")) {
-        // Store address
-        this.setState({ addressError: false });
-
+    if (
+      address &&
+      address.length > 4 &&
+      address.toUpperCase().startsWith('HTTP')
+    ) {
+      // Store address
+      this.setState({ addressError: false });
     } else {
       // Invalid address
       this.setState({ addressError: true });
@@ -178,14 +178,12 @@ export default class EditSettings extends React.Component {
       this.setState({ refreshError: true });
     }
   }
-
-
-}  // End EditSettings
+} // End EditSettings
 
 EditSettings.propTypes = {
-  visible: React.PropTypes.bool.isRequired,
-  onCancelEdit: React.PropTypes.func.isRequired,
-  onSaveEdit: React.PropTypes.func.isRequired,
+  visible: PropTypes.bool.isRequired,
+  onCancelEdit: PropTypes.func.isRequired,
+  onSaveEdit: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -202,7 +200,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingVertical: 40,
   },
-    inputLabel: {
+  inputLabel: {
     marginLeft: 35,
     fontSize: 20,
     alignItems: 'flex-start',
@@ -245,5 +243,5 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 30,
     marginBottom: 20,
-},
+  },
 });

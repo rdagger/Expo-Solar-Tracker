@@ -1,8 +1,8 @@
+import { action, observable } from 'mobx';
+import { AsyncStorage } from 'react-native';
+
 // Setting up block level variable for singleton (AppState)
 let instance = null;
-
-import { AsyncStorage } from 'react-native';
-import { action, observable } from 'mobx';
 
 class AppState {
   @observable address;
@@ -25,10 +25,10 @@ class AppState {
     return instance;
   }
 
-
-  @action _fetchData() {
+  @action
+  _fetchData() {
     if (!this.address) {
-      this.error = "No REST API address specified.\nPlease click settings.";
+      this.error = 'No REST API address specified.\nPlease click settings.';
       return;
     } else {
       this.error = null;
@@ -36,26 +36,28 @@ class AppState {
     // Fetch data from Rest API
     fetch(this.address, {
       method: 'GET',
-    }).then((response) => {
-      if (response.ok) {
-        response.json().then((data) => {
-          this.data = data;
-          this.error = null;
-        });
-      } else {
-        // Error
-        response.json().then((r) => {
-          this.error = r.error;
-        });
-      }
-      // Repeat fetch at specified interval
-      this.fetchTimer();
-    }).catch((error) => {
-      // Error no response
-      this.error = error.message;
-      // Repeat fetch at specified interval
-      this.fetchTimer();
-    });
+    })
+      .then(response => {
+        if (response.ok) {
+          response.json().then(data => {
+            this.data = data;
+            this.error = null;
+          });
+        } else {
+          // Error
+          response.json().then(r => {
+            this.error = r.error;
+          });
+        }
+        // Repeat fetch at specified interval
+        this.fetchTimer();
+      })
+      .catch(error => {
+        // Error no response
+        this.error = error.message;
+        // Repeat fetch at specified interval
+        this.fetchTimer();
+      });
   }
 
   fetchTimer() {
@@ -65,11 +67,15 @@ class AppState {
         clearTimeout(this.timeOut);
       }
       // Note timer may not work properly if remote debugging enabled
-      this.timeOut = setTimeout(() => this._fetchData(), parseFloat(this.refresh) * 1000);
+      this.timeOut = setTimeout(
+        () => this._fetchData(),
+        parseFloat(this.refresh) * 1000
+      );
     }
   }
 
-  @action loadSettings() {
+  @action
+  loadSettings() {
     AsyncStorage.multiGet(['address', 'refresh'], (error, stores) => {
       if (error) {
         console.log(error.message);
@@ -91,13 +97,13 @@ class AppState {
     });
   }
 
-  @action saveSettings(settings, onSave) {
+  @action
+  saveSettings(settings, onSave) {
     const { address, refresh } = settings;
     this.address = address;
     this.refresh = refresh;
-
     const set_pairs = [['address', address], ['refresh', refresh]];
-    AsyncStorage.multiSet(set_pairs, (error) => {
+    AsyncStorage.multiSet(set_pairs, error => {
       if (error) {
         onSave(error.message);
       } else {

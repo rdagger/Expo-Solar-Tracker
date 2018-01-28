@@ -1,25 +1,20 @@
 import React from 'react';
-import { ScrollView,
-         StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { observer, inject } from 'mobx-react/native';
 import Level from '../components/Level';
 import { PiLogo } from '../components/PiLogo';
 
-@inject("appState") @observer
+@inject('appState')
+@observer
 export default class PanelScreen extends React.Component {
-  static route = {
-    navigationBar: {
-      title: 'Solar Panel',
-      renderLeft: (route, props) => <PiLogo />,
-    },
-  }
+  static navigationOptions = {
+    title: 'Solar Tracker',
+    headerLeft: <PiLogo />,
+  };
 
   render() {
     return (
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={this.props.route.getContentContainerStyle()}>
-
+      <ScrollView style={styles.container}>
         <Level
           query="pv_voltage"
           label="Solar Panel Voltage"
@@ -27,16 +22,15 @@ export default class PanelScreen extends React.Component {
           min={0}
           max={24}
         />
-
       </ScrollView>
     );
   }
-
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
+    backgroundColor: '#fff',
   },
 });

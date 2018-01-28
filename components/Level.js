@@ -1,22 +1,25 @@
 import React from 'react';
-import { ActivityIndicator,
-         Dimensions,
-         StyleSheet,
-         Text,
-         View } from 'react-native';
+import PropTypes from 'prop-types';
+import {
+  ActivityIndicator,
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 import { observer, inject } from 'mobx-react/native';
 import Gauge from './Gauge';
 import SettingsButton from '../components/SettingsButton';
 
-@inject("appState") @observer
+@inject('appState')
+@observer
 export default class Level extends React.Component {
   render() {
-    const {height, width} = Dimensions.get('window');
-
-    const gauge = this.props.appState.data &&
-      typeof this.props.appState.data[this.props.query] !== undefined ?
-      (
+    const { height, width } = Dimensions.get('window');
+    const gauge =
+      this.props.appState.data &&
+      typeof this.props.appState.data[this.props.query] !== undefined ? (
         <Gauge
           value={this.props.appState.data[this.props.query]}
           units={this.props.units}
@@ -30,28 +33,28 @@ export default class Level extends React.Component {
           valueFontSize={50}
           labelFontSize={30}
         />
-    ) : <ActivityIndicator animating size="large" />;
+      ) : (
+        <ActivityIndicator animating size="large" />
+      );
 
     return (
       <View style={styles.container}>
         <View style={styles.settingsButtonContainer}>
           <SettingsButton />
         </View>
-        <Text style={styles.errorMessage}>
-          {this.props.appState.error}
-        </Text>
+        <Text style={styles.errorMessage}>{this.props.appState.error}</Text>
         {gauge}
       </View>
     );
   }
-}  // End Level
+} // End Level
 
 Level.propTypes = {
-  query: React.PropTypes.string.isRequired,
-  label: React.PropTypes.string.isRequired,
-  units: React.PropTypes.string,
-  min: React.PropTypes.number,
-  max: React.PropTypes.number,
+  query: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  units: PropTypes.string,
+  min: PropTypes.number,
+  max: PropTypes.number,
 };
 
 const styles = StyleSheet.create({
