@@ -31,7 +31,7 @@ export default class Gauge extends React.Component {
         </Text>
         <Text
           x={this.props.width / 2}
-          y={this.props.height / 5 * 4}
+          y={(this.props.height / 5) * 4}
           textAnchor="middle"
           fontSize={valueFontSize}>
           {this.props.value.toString() + this.props.units}

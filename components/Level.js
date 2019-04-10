@@ -12,9 +12,10 @@ import { observer, inject } from 'mobx-react/native';
 import Gauge from './Gauge';
 import SettingsButton from '../components/SettingsButton';
 
+export default
 @inject('appState')
 @observer
-export default class Level extends React.Component {
+class Level extends React.Component {
   render() {
     const { height, width } = Dimensions.get('window');
     const gauge =

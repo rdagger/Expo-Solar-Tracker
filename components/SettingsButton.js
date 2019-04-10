@@ -4,9 +4,10 @@ import { FontAwesome } from '@expo/vector-icons';
 import { observer, inject } from 'mobx-react/native';
 import EditSettings from './EditSettings';
 
+export default
 @inject('appState')
 @observer
-export default class SettingsButton extends React.Component {
+class SettingsButton extends React.Component {
   constructor(props) {
     super(props);
 

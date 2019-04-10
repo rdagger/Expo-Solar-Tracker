@@ -4,9 +4,10 @@ import { observer, inject } from 'mobx-react/native';
 import Level from '../components/Level';
 import { PiLogo } from '../components/PiLogo';
 
+export default
 @inject('appState')
 @observer
-export default class ChargeScreen extends React.Component {
+class ChargeScreen extends React.Component {
   static navigationOptions = {
     title: 'Solar Tracker',
     headerLeft: <PiLogo />,

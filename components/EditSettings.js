@@ -13,9 +13,10 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 import { observer, inject } from 'mobx-react/native';
 
+export default
 @inject('appState')
 @observer
-export default class EditSettings extends React.Component {
+class EditSettings extends React.Component {
   constructor(props) {
     super(props);
 
