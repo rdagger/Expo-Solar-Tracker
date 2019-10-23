@@ -8,13 +8,10 @@ import {
   View,
 } from 'react-native';
 
-import { observer, inject } from 'mobx-react/native';
+import { observer, inject } from 'mobx-react';
 import Gauge from './Gauge';
 import SettingsButton from '../components/SettingsButton';
 
-export default
-@inject('appState')
-@observer
 class Level extends React.Component {
   render() {
     const { height, width } = Dimensions.get('window');
@@ -49,6 +46,7 @@ class Level extends React.Component {
     );
   }
 } // End Level
+export default inject('appState')(observer(Level));
 
 Level.propTypes = {
   query: PropTypes.string.isRequired,

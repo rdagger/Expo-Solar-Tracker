@@ -1,12 +1,9 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { observer, inject } from 'mobx-react/native';
+import { observer, inject } from 'mobx-react';
 import Level from '../components/Level';
 import { PiLogo } from '../components/PiLogo';
 
-export default
-@inject('appState')
-@observer
 class BatteryScreen extends React.Component {
   static navigationOptions = {
     title: 'Solar Tracker',
@@ -26,7 +23,8 @@ class BatteryScreen extends React.Component {
       </ScrollView>
     );
   }
-}
+}  // End BatteryScreen
+export default inject('appState')(observer(BatteryScreen));
 
 const styles = StyleSheet.create({
   container: {

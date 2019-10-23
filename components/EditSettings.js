@@ -11,11 +11,8 @@ import {
 } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons';
-import { observer, inject } from 'mobx-react/native';
+import { observer, inject } from 'mobx-react';
 
-export default
-@inject('appState')
-@observer
 class EditSettings extends React.Component {
   constructor(props) {
     super(props);
@@ -180,6 +177,7 @@ class EditSettings extends React.Component {
     }
   }
 } // End EditSettings
+export default inject('appState')(observer(EditSettings));
 
 EditSettings.propTypes = {
   visible: PropTypes.bool.isRequired,

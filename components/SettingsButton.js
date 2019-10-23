@@ -1,12 +1,9 @@
 import React from 'react';
 import { Alert, TouchableOpacity, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { observer, inject } from 'mobx-react/native';
+import { observer, inject } from 'mobx-react';
 import EditSettings from './EditSettings';
 
-export default
-@inject('appState')
-@observer
 class SettingsButton extends React.Component {
   constructor(props) {
     super(props);
@@ -59,3 +56,4 @@ class SettingsButton extends React.Component {
     this.setState({ showEditSettings: true });
   }
 } //  End SettingsButton
+export default inject('appState')(observer(SettingsButton));

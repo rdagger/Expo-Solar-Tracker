@@ -1,6 +1,6 @@
 {
   "name": "Solar-Tracker",
-  "version": "1.0.32",
+  "version": "1.0.35",
   "description": "Display Solar Rest API Data",
   "author": "rdagger",
   "license": "MIT",
@@ -17,20 +17,26 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/samples": "2.1.1",
-    "expo": "^32.0.0",
-    "mobx": "^5.9.4",
-    "mobx-react": "^5.4.3",
-    "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
-    "react-navigation": "^3.0.9"
+    "@expo/samples": "3.0.3",
+    "@expo/vector-icons": "^10.0.3",
+    "expo": "^35.0.0",
+    "expo-asset": "^7.0.0",
+    "expo-constants": "^7.0.0",
+    "expo-font": "^7.0.0",
+    "mobx": "^5.14.2",
+    "mobx-react": "^6.1.4",
+    "react": "16.8.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-gesture-handler": "~1.3.0",
+    "react-native-svg": "^9.12.0",
+    "react-navigation": "^3.12.0"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.16.0",
-    "eslint-config-universe": "^1.0.7",
-    "jest-expo": "^32.0.0",
-    "prettier": "^1.16.4"
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.5.1",
+    "eslint-config-universe": "^2.0.0",
+    "jest-expo": "^35.0.0",
+    "prettier": "^1.18.2"
   },
   "eslintConfig": {
     "extends": "universe/native"
