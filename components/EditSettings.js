@@ -1,5 +1,7 @@
-import React from 'react';
+import { FontAwesome } from '@expo/vector-icons';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import {
   Alert,
   Modal,
@@ -10,16 +12,19 @@ import {
   View,
 } from 'react-native';
 
-import { FontAwesome } from '@expo/vector-icons';
-import { observer, inject } from 'mobx-react';
+import { withAppStore } from '../store/AppContext';
 
+@withAppStore
+@observer
 class EditSettings extends React.Component {
   constructor(props) {
     super(props);
 
+    const { store } = this.props;
+
     this.state = {
-      address: props.appState.address,
-      refresh: props.appState.refresh,
+      address: store.address,
+      refresh: store.refresh,
       addressError: false,
       refreshError: false,
     };
@@ -30,6 +35,7 @@ class EditSettings extends React.Component {
     this._onChangeRefresh = this._onChangeRefresh.bind(this);
     this._onEndAddress = this._onEndAddress.bind(this);
     this._onEndRefresh = this._onEndRefresh.bind(this);
+    this._onShow = this._onShow.bind(this);
   }
 
   render() {
@@ -51,6 +57,7 @@ class EditSettings extends React.Component {
           animationType="fade"
           transparent
           visible={this.props.visible}
+          onShow={this._onShow}
           onRequestClose={this._closeModal}>
           <View style={styles.innerContainer}>
             <View style={styles.inputContainer}>
@@ -141,6 +148,13 @@ class EditSettings extends React.Component {
     }
   }
 
+  _onShow() {
+    this.setState({ address: this.props.store.address });
+    this.setState({ refresh: this.props.store.refresh });
+    this.setState({ addressError: false });
+    this.setState({ refreshError: false });
+  }
+
   _onChangeAddress(address) {
     this.setState({ address });
     this.setState({ addressError: false });
@@ -177,7 +191,7 @@ class EditSettings extends React.Component {
     }
   }
 } // End EditSettings
-export default inject('appState')(observer(EditSettings));
+export default EditSettings;
 
 EditSettings.propTypes = {
   visible: PropTypes.bool.isRequired,

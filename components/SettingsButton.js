@@ -1,9 +1,13 @@
+import { FontAwesome } from '@expo/vector-icons';
+import { observer } from 'mobx-react';
 import React from 'react';
 import { Alert, TouchableOpacity, View } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import { observer, inject } from 'mobx-react';
+
+import { withAppStore } from '../store/AppContext';
 import EditSettings from './EditSettings';
 
+@withAppStore
+@observer
 class SettingsButton extends React.Component {
   constructor(props) {
     super(props);
@@ -42,7 +46,7 @@ class SettingsButton extends React.Component {
 
   _onEditSave(settings) {
     this.setState({ disableForm: true });
-    this.props.appState.saveSettings(settings, error => {
+    this.props.store.saveSettings(settings, (error) => {
       this.setState({ disableForm: false });
       if (error) {
         Alert.alert(error.message);
@@ -56,4 +60,4 @@ class SettingsButton extends React.Component {
     this.setState({ showEditSettings: true });
   }
 } //  End SettingsButton
-export default inject('appState')(observer(SettingsButton));
+export default SettingsButton;

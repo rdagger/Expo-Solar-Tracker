@@ -1,5 +1,6 @@
-import React from 'react';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -8,18 +9,19 @@ import {
   View,
 } from 'react-native';
 
-import { observer, inject } from 'mobx-react';
+import { withAppStore } from '../store/AppContext';
 import Gauge from './Gauge';
-import SettingsButton from '../components/SettingsButton';
 
+@withAppStore
+@observer
 class Level extends React.Component {
   render() {
+    const { store } = this.props;
     const { height, width } = Dimensions.get('window');
     const gauge =
-      this.props.appState.data &&
-      typeof this.props.appState.data[this.props.query] !== undefined ? (
+      store.data && typeof store.data[this.props.query] !== undefined ? (
         <Gauge
-          value={this.props.appState.data[this.props.query]}
+          value={store.data[this.props.query]}
           units={this.props.units}
           width={width}
           height={height - 200}
@@ -37,16 +39,13 @@ class Level extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.settingsButtonContainer}>
-          <SettingsButton />
-        </View>
-        <Text style={styles.errorMessage}>{this.props.appState.error}</Text>
+        <Text style={styles.errorMessage}>{store.error}</Text>
         {gauge}
       </View>
     );
   }
 } // End Level
-export default inject('appState')(observer(Level));
+export default Level;
 
 Level.propTypes = {
   query: PropTypes.string.isRequired,

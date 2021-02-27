@@ -1,7 +1,6 @@
 //  Code based on https://github.com/Reggino/react-svg-gauge
-
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Svg, Text, Path } from 'react-native-svg';
 
 export default class Gauge extends React.Component {
@@ -25,6 +24,7 @@ export default class Gauge extends React.Component {
           x={this.props.width / 2}
           y={this.props.height / 4}
           textAnchor="middle"
+          fill="black"
           fontSize={labelFontSize}
           fontWeight="bold">
           {this.props.label}
@@ -33,6 +33,7 @@ export default class Gauge extends React.Component {
           x={this.props.width / 2}
           y={(this.props.height / 5) * 4}
           textAnchor="middle"
+          fill="black"
           fontSize={valueFontSize}>
           {this.props.value.toString() + this.props.units}
         </Text>
@@ -40,6 +41,7 @@ export default class Gauge extends React.Component {
           x={(Cx - Ro + Cx - Ri) / 2}
           y={Cy + 25}
           textAnchor="middle"
+          fill="black"
           fontSize={this.props.minMaxFontSize}>
           {this.props.min}
         </Text>
@@ -47,6 +49,7 @@ export default class Gauge extends React.Component {
           x={(Xo + Xi) / 2}
           y={Cy + 25}
           textAnchor="middle"
+          fill="black"
           fontSize={this.props.minMaxFontSize}>
           {this.props.max}
         </Text>
@@ -54,7 +57,7 @@ export default class Gauge extends React.Component {
     );
   }
 
-  _getPathValues = value => {
+  _getPathValues = (value) => {
     value = Math.min(value, this.props.max);
     value = Math.max(value, this.props.min);
 
@@ -78,7 +81,7 @@ export default class Gauge extends React.Component {
     return { Ro, Ri, Cx, Cy, Xo, Yo, Xi, Yi };
   };
 
-  _getPath = value => {
+  _getPath = (value) => {
     const { Ro, Ri, Cx, Cy, Xo, Yo, Xi, Yi } = this._getPathValues(value);
 
     let path = 'M' + (Cx - Ri) + ',' + Cy + ' ';
