@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#DE4567',
   },
   buttonLabel: {
-    fontSize: 30,
+    fontSize: 24,
   },
   textInput: {
     alignItems: 'stretch',
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'aliceblue',
     borderRadius: 10,
     borderWidth: 1,
-    fontSize: 30,
+    fontSize: 20,
     height: 56,
     padding: 10,
     marginHorizontal: 30,
